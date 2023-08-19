@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\RecycleBinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 Route::get('files', [FileController::class, 'index'])->name('files');
 Route::get('files/{file}', [FileController::class, 'download'])->name('file.download');
 Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('activity-log');
+
+Route::get('/recycle-bin', [RecycleBinController::class, 'index'])->name('recycle-bin.index');
+Route::get('/recycle-bin/restore/{id}', [RecycleBinController::class, 'restore'])->name('recycle-bin.restore');
+Route::get('/recycle-bin/destroy/{id}', [RecycleBinController::class, 'destroy'])->name('recycle-bin.destroy');
