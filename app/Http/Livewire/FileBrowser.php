@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\Obj;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\ActivityLog;
+
 
 class FileBrowser extends Component
 {
@@ -43,11 +45,19 @@ class FileBrowser extends Component
     public function deleteObject()
     {
         Obj::forCurrentTeam()->find($this->confirmingObjectDeletion)->delete();
-
+    
+        // Log the deletion activity
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'team_id' => auth()->user()->currentTeam->id,
+            'action' => 'file_delete',
+            'description' => 'File/folder deleted'
+        ]);
+    
         $this->confirmingObjectDeletion = null;
-
         $this->object = $this->object->fresh();
     }
+    
 
     public function updatedUpload($upload)
     {
@@ -103,23 +113,32 @@ class FileBrowser extends Component
         $this->validate([
             'newFolderState.name' => 'required|max:255'
         ]);
-
+    
         $object = $this->currentTeam->objects()->make([
             'parent_id' => $this->object->id
         ]);
-
+    
         $folder = $this->currentTeam->folders()->create($this->newFolderState);
         $object->objectable()->associate($folder);
         $object->save();
-
+    
+        // Log the folder creation activity
+        ActivityLog::create([
+            'user_id' => auth()->user()->id,
+            'team_id' => auth()->user()->currentTeam->id,
+            'action' => 'folder_create',
+            'description' => 'Folder created'
+        ]);
+    
         $this->reset([
             'creatingNewFolder',
             'newFolderState'
         ]);
-
-        //reload entire component
+    
+        // Reload entire component
         $this->object = $this->object->fresh();
     }
+    
 
     public function getCurrentTeamProperty()
     {
