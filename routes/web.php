@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::get('files', [FileController::class, 'index'])->name('files');
 Route::get('files/{file}', [FileController::class, 'download'])->name('file.download');
+Route::get('/activity-log', [ActivityLogController::class, 'index'])->name('activity-log');

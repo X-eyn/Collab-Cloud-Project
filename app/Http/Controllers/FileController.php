@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Obj;
 use App\Models\File;
 use Illuminate\Http\Request;
@@ -34,6 +35,11 @@ class FileController extends Controller
     public function download(File $file)
     {
         $this->authorize('download', $file);
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => 'file_download',
+            'description' => 'Downloaded the file named ' . $file->name,
+        ]);
 
         return Storage::disk('local')->download($file->path, $file->name);
     }
