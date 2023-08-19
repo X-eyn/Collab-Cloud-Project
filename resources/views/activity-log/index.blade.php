@@ -12,7 +12,8 @@
                     <table class="table table-hover border border-gray-600 rounded-lg">
                         <thead class="bg-gray-800 text-white">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">User ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">User Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Team Name</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Action</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Description</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
@@ -22,6 +23,7 @@
                             @foreach($logs as $log)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ optional($log->user)->name ?? 'N/A' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ optional($log->team)->name ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $log->action }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $log->description }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $log->created_at->format('Y-m-d H:i:s') }}</td>

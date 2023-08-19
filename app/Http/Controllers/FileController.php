@@ -33,14 +33,16 @@ class FileController extends Controller
     }
 
     public function download(File $file)
-    {
-        $this->authorize('download', $file);
-        ActivityLog::create([
-            'user_id' => auth()->id(),
-            'action' => 'file_download',
-            'description' => 'Downloaded the file named ' . $file->name,
-        ]);
+{
+    $this->authorize('download', $file);
+    ActivityLog::create([
+        'user_id' => auth()->id(),
+        'team_id' => auth()->user()->currentTeam->id, // Include the current team ID
+        'action' => 'file_download',
+        'description' => 'Downloaded the file named ' . $file->name,
+    ]);
 
-        return Storage::disk('local')->download($file->path, $file->name);
-    }
+    return Storage::disk('local')->download($file->path, $file->name);
+}
+
 }
