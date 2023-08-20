@@ -21,8 +21,10 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $file->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('recycle-bin.restore', $file->id) }}">Restore</a>
-                                        <a href="{{ route('recycle-bin.destroy', $file->id) }}">Delete Permanently</a>
+                                    <a href="{{ route('recycle-bin.restore', $file->id) }}" class="btn btn-blue border border-blue-500 rounded-sm">Restore</a>
+                                    <a href="{{ route('recycle-bin.destroy', $file->id) }}" class="btn btn-red border border-red-500 rounded-sm">Delete Permanently</a>
+
+
                                     </td>
                                 </tr>
                             @endforeach

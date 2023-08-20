@@ -29,6 +29,10 @@
                         <x-jet-nav-link href="{{ route('recycle-bin.index') }}" :active="request()->routeIs('recycle-bin.index')">
                             {{ __('Recycle Bin') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('contact') }}" :active="request()->routeIs('recycle-bin.index')">
+                            {{ __('Contact') }}
+                        </x-jet-nav-link>
+                        
 
                     </div>
 
